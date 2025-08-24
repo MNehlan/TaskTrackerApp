@@ -1,10 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, TextField, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Card, CardContent} from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  IconButton,
+  Card,
+  CardContent,
+  useTheme,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
 const TeamManager = () => {
+  const theme = useTheme(); // Access MUI theme
   const [team, setTeam] = useState([]);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -66,7 +83,16 @@ const TeamManager = () => {
   };
 
   return (
-    <Box sx={{ p: 3, ml: { md: '240px' }, width: { md: 'calc(100% - 240px)' } }}>
+    <Box
+      sx={{
+        p: 3,
+        ml: { md: '240px' },
+        width: { md: 'calc(100% - 240px)' },
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        minHeight: '100vh',
+      }}
+    >
       <Typography variant="h4" fontWeight="bold" mb={3}>
         Team Manager
       </Typography>
@@ -108,14 +134,46 @@ const TeamManager = () => {
       </Card>
 
       {/* Team Members Table */}
-      <Paper elevation={4} sx={{ borderRadius: 3 }}>
+      <Paper
+        elevation={4}
+        sx={{
+          borderRadius: 3,
+          bgcolor: 'background.paper',
+          color: 'text.primary',
+        }}
+      >
         <TableContainer>
           <Table>
-            <TableHead sx={{ bgcolor: '#f3f4f6' }}>
+            <TableHead>
               <TableRow>
-                <TableCell><strong>Name</strong></TableCell>
-                <TableCell><strong>Email</strong></TableCell>
-                <TableCell align="right"><strong>Actions</strong></TableCell>
+                <TableCell
+                  sx={{
+                    bgcolor: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Name
+                </TableCell>
+                <TableCell
+                  sx={{
+                    bgcolor: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Email
+                </TableCell>
+                <TableCell
+                  align="right"
+                  sx={{
+                    bgcolor: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Actions
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

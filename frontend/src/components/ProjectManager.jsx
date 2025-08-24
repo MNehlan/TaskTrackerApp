@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, TextField,  Button, IconButton, Paper, Table, TableHead, TableRow, TableCell, TableBody} from '@mui/material';
+import {
+  Box,
+  Typography,
+  TextField,
+  Button,
+  IconButton,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  useTheme,
+} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
 const ProjectManager = () => {
+  const theme = useTheme(); // Access MUI theme
   const [projects, setProjects] = useState([]);
   const [projectName, setProjectName] = useState('');
   const [editId, setEditId] = useState(null);
@@ -54,6 +68,7 @@ const ProjectManager = () => {
         boxSizing: 'border-box',
         bgcolor: 'background.default',
         minHeight: '100vh',
+        color: 'text.primary',
       }}
     >
       <Box sx={{ maxWidth: '900px', mx: 'auto' }}>
@@ -70,7 +85,15 @@ const ProjectManager = () => {
             mb: 3,
           }}
         >
-          <Paper elevation={4} sx={{ p: 3, borderRadius: 3, bgcolor: '#3b82f6', color: 'white' }}>
+          <Paper
+            elevation={4}
+            sx={{
+              p: 3,
+              borderRadius: 3,
+              bgcolor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
+            }}
+          >
             <Typography variant="h6">Total Projects</Typography>
             <Typography variant="h3" fontWeight="bold">
               {projects.length}
@@ -105,12 +128,37 @@ const ProjectManager = () => {
         </Paper>
 
         {/* Project Table */}
-        <Paper elevation={4} sx={{ borderRadius: 3, overflow: 'hidden' }}>
+        <Paper
+          elevation={4}
+          sx={{
+            borderRadius: 3,
+            overflow: 'hidden',
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+          }}
+        >
           <Table>
-            <TableHead sx={{ bgcolor: 'grey.200' }}>
+            <TableHead>
               <TableRow>
-                <TableCell>Project Name</TableCell>
-                <TableCell align="right">Actions</TableCell>
+                <TableCell
+                  sx={{
+                    bgcolor: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Project Name
+                </TableCell>
+                <TableCell
+                  align="right"
+                  sx={{
+                    bgcolor: theme.palette.background.paper,
+                    color: theme.palette.text.primary,
+                    fontWeight: 'bold',
+                  }}
+                >
+                  Actions
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

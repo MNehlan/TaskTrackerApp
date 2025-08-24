@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Typography, Button, LinearProgress, Paper, useTheme } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Button,
+  LinearProgress,
+  Paper,
+  useTheme,
+} from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
@@ -15,7 +22,7 @@ const TeamMemberDashboard = ({ user }) => {
   const fetchTasks = async () => {
     try {
       const res = await axios.get('http://localhost:5000/api/tasks');
-      const assigned = res.data.filter(task => task.assignedTo === user.name);
+      const assigned = res.data.filter((task) => task.assignedTo === user.name);
       setTasks(assigned);
     } catch (err) {
       console.error('Error fetching tasks:', err);
@@ -27,9 +34,9 @@ const TeamMemberDashboard = ({ user }) => {
   }, []);
 
   const assignedTasks = tasks;
-  const completed = assignedTasks.filter(task => task.status === 'Done').length;
-  const inProgress = assignedTasks.filter(task => task.status === 'In Progress').length;
-  const toDo = assignedTasks.filter(task => task.status === 'To Do').length;
+  const completed = assignedTasks.filter((task) => task.status === 'Done').length;
+  const inProgress = assignedTasks.filter((task) => task.status === 'In Progress').length;
+  const toDo = assignedTasks.filter((task) => task.status === 'To Do').length;
   const total = assignedTasks.length;
   const completion = total > 0 ? Math.round((completed / total) * 100) : 0;
 
@@ -39,6 +46,7 @@ const TeamMemberDashboard = ({ user }) => {
         width: '100%',
         minHeight: '100vh',
         bgcolor: 'background.default',
+        color: 'text.primary',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -56,7 +64,8 @@ const TeamMemberDashboard = ({ user }) => {
           sx={{
             p: { xs: 3, md: 5 },
             borderRadius: 4,
-            background: 'linear-gradient(to bottom, #f9fafc, #e8eefc)',
+            bgcolor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
             textAlign: 'center',
           }}
         >
@@ -85,14 +94,13 @@ const TeamMemberDashboard = ({ user }) => {
               height: 12,
               borderRadius: 6,
               mb: 4,
-              backgroundColor: '#d6e0f5',
+              backgroundColor: theme.palette.grey[300],
               '& .MuiLinearProgress-bar': {
-                backgroundColor: '#1e3a8a',
+                backgroundColor: theme.palette.primary.main,
               },
             }}
           />
 
-          {/* Replaced MUI Grid with Box + CSS Grid */}
           <Box
             display="grid"
             gridTemplateColumns={{ xs: '1fr', sm: '1fr 1fr 1fr' }}
@@ -125,33 +133,38 @@ const TeamMemberDashboard = ({ user }) => {
   );
 };
 
-const StatCard = ({ icon, label, value, color }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.4 }}
-  >
-    <Paper
-      elevation={3}
-      sx={{
-        p: 3,
-        textAlign: 'center',
-        borderRadius: 3,
-        background: '#fff',
-        boxShadow: '0 4px 15px rgba(0,0,0,0.08)',
-      }}
+const StatCard = ({ icon, label, value, color }) => {
+  const theme = useTheme();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
     >
-      <Box display="flex" justifyContent="center" mb={1}>
-        {React.cloneElement(icon, { sx: { fontSize: 40, color } })}
-      </Box>
-      <Typography variant="body2" color="text.secondary" gutterBottom>
-        {label}
-      </Typography>
-      <Typography variant="h6" fontWeight="bold">
-        {value}
-      </Typography>
-    </Paper>
-  </motion.div>
-);
+      <Paper
+        elevation={3}
+        sx={{
+          p: 3,
+          textAlign: 'center',
+          borderRadius: 3,
+          bgcolor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
+          boxShadow: '0 4px 15px rgba(0,0,0,0.08)',
+        }}
+      >
+        <Box display="flex" justifyContent="center" mb={1}>
+          {React.cloneElement(icon, { sx: { fontSize: 40, color } })}
+        </Box>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
+          {label}
+        </Typography>
+        <Typography variant="h6" fontWeight="bold">
+          {value}
+        </Typography>
+      </Paper>
+    </motion.div>
+  );
+};
 
 export default TeamMemberDashboard;

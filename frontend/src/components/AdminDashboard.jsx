@@ -2,18 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {Box, Typography, Card, CardContent, useTheme, Avatar, Table, TableHead, TableRow, TableCell, TableBody,  Paper} from '@mui/material';
 import { motion } from 'framer-motion';
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  ResponsiveContainer,
-} from 'recharts';
+import { PieChart, Pie, Cell, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, ResponsiveContainer,} from 'recharts';
 import { deepPurple } from '@mui/material/colors';
 
 const AdminDashboard = () => {
